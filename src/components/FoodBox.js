@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 class FoodBox extends Component {
   render() {
-    const {name, calories, image, quantity} = this.props;
+    const {name, calories, image} = this.props;
     return (
       <div className="box">
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src={image} />
+              <img src={image} alt="picture"/>
             </figure>
           </div>
           <div className="media-content">
