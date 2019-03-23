@@ -3,9 +3,12 @@ import './App.css';
 import foods from './data/foods.json'
 import FoodBox from './components/FoodBox'
 import Button from './components/Button'
+import SearchBar from './components/SearchBar'
 
 
 
+
+const FOOD = foods;
 
 class App extends Component {
 
@@ -13,7 +16,7 @@ class App extends Component {
     arrayFood : foods
   }
 
-  renderList(){
+  renderList =()=> {
     return this.state.arrayFood.map((food, index) => {
       return <FoodBox 
                   key={`id-${index}`} 
@@ -25,6 +28,18 @@ class App extends Component {
                   />
     })
   }
+   updateSearch = (searchData)  => {
+     let filtered;
+     searchData !== '' ?  
+        filtered = FOOD.filter((foods) => {
+          return foods.name.toLowerCase().indexOf(searchData.toLowerCase()) !== -1;
+        }) : 
+        filtered = FOOD;
+    this.setState({
+      arrayFood : filtered
+    })
+   }
+ 
 
   add = (name,calories,image,quantity) => {
   const newContact = {
@@ -39,8 +54,12 @@ class App extends Component {
 }
 
   render() {
+    console.log(this.state.arrayFood);
     return (
       <div>
+        <SearchBar 
+        searchData={this.updateSearch}
+        />
         <Button 
         add={this.add}/>
         {this.renderList()}
